@@ -47,9 +47,9 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/fairdevkit/rdf-resource-resolver</url>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshots</name>
+            <url>https://nexus.internal.fairdatapoint.org/repository/maven-snapshots/</url>
         </repository>
     </distributionManagement>
 

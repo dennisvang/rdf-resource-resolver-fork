@@ -21,8 +21,17 @@ jobs:
       - name: Maven build
         run: mvn -B -U -ff tidy:check com.mycila:license-maven-plugin:check com.github.spotbugs:spotbugs-maven-plugin:check verify
 
+      - name: Setup settings.xml
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        uses: s4u/maven-settings-action@v2.4.0
+        with:
+          servers: |
+            [{
+                "id": "nexus-snapshots",
+                "username": "${{ secrets.NEXUS_USERNAME }}",
+                "password": "${{ secrets.NEXUS_PASSWORD }}"
+            }]
+
       - name: Deploy snapshot
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: mvn -B package javadoc:jar source:jar deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
