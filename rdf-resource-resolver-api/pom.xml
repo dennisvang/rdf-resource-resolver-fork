@@ -30,7 +30,7 @@
     <parent>
         <groupId>com.github.fairdevkit</groupId>
         <artifactId>rdf-resource-resolver</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>rdf-resource-resolver-api</artifactId>

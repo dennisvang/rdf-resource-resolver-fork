@@ -26,13 +26,11 @@ package com.github.fairdevkit.rdf.resolver.core;
 import com.github.fairdevkit.rdf.resolver.api.ResolverStrategy;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 import java.util.function.BiFunction;
-import org.apache.http.HttpHeaders;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFParserRegistry;
 

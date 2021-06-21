@@ -82,7 +82,7 @@ public interface ResourceResolver {
     default Optional<Model> resolveResource(String iri) throws IOException {
         return consumeResource(iri, (format, stream) -> {
             try {
-                return Rio.parse(stream, format);
+                return Rio.parse(stream, iri, format);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
