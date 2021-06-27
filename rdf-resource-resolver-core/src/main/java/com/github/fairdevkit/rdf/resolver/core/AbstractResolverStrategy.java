@@ -29,20 +29,35 @@ import java.io.InputStream;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiFunction;
+
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFParserRegistry;
 
 public abstract class AbstractResolverStrategy implements ResolverStrategy {
-    public static final Iterable<RDFFormat> FORMATS;
+    public static final Set<RDFFormat> FORMATS;
     public static final String ACCEPT_PARAMS;
     public static final HttpClient CLIENT;
 
     static {
         FORMATS = RDFParserRegistry.getInstance().getKeys();
 
-        var params = RDFFormat.getAcceptParams(FORMATS, false, RDFFormat.TURTLE);
+        var params = new ArrayList<String>();
+        for (RDFFormat format : FORMATS) {
+            for (String mimeType: format.getMIMETypes()) {
+                if (format == RDFFormat.RDFXML) {
+                    params.add(mimeType);
+                } else if (format == RDFFormat.TURTLE || format == RDFFormat.TRIG) {
+                    params.add(mimeType + ";q=0.8");
+                } else {
+                    params.add(mimeType + ";q=0.5");
+                }
+            }
+        }
+
         ACCEPT_PARAMS = String.join(",", params);
 
         CLIENT = HttpClient.newBuilder()
