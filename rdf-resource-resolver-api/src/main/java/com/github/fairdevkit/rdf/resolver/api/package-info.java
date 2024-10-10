@@ -26,4 +26,4 @@
  * API types for the RDF resolver library.
  */
 @javax.annotation.ParametersAreNonnullByDefault
-package com.github.fairdevkit.rdf.resolver.api;
+package com.github.fairdatateam.rdf.resolver.api;

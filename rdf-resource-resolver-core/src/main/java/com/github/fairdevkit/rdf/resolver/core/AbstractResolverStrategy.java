@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fairdevkit.rdf.resolver.core;
+package com.github.fairdatateam.rdf.resolver.core;
 
-import com.github.fairdevkit.rdf.resolver.api.ResolverStrategy;
+import com.github.fairdatateam.rdf.resolver.api.ResolverStrategy;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.http.HttpClient;

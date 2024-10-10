@@ -6,4 +6,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/fairdevkit/rdf-resource-resolver/compare/master...HEAD
+[Unreleased]: https://github.com/fairdatateam/rdf-resource-resolver/compare/master...HEAD
