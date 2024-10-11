@@ -154,8 +154,7 @@
                     </licenseSets>
                 </configuration>
             </plugin>
-            <plugin>
-                <!-- required for deploying projects with ${revision} -->
+            <plugin><!-- required for deploying projects with ${revision} -->
                 <!-- https://maven.apache.org/maven-ci-friendly.html#install-deploy -->
                 <!-- https://www.mojohaus.org/flatten-maven-plugin/usage.html -->
                 <groupId>org.codehaus.mojo</groupId>
