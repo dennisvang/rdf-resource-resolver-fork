@@ -50,7 +50,7 @@
             <!-- https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#publishing-a-package -->
             <id>github</id>
             <name>GitHub dennisvang Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/dennisvang/temp-packages-maven</url>
+            <url>https://maven.pkg.github.com/dennisvang/rdf-resource-resolver-fork</url>
         </repository>
     </distributionManagement>
 
