@@ -6,32 +6,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        # temurin LTS versions
+        version: [17, 21]
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: ${{ matrix.version }}
+          distribution: 'temurin'  
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Maven build
         run: mvn -B -U -ff tidy:check com.mycila:license-maven-plugin:check com.github.spotbugs:spotbugs-maven-plugin:check verify
-
-      - name: Setup settings.xml
-        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-        uses: s4u/maven-settings-action@v2.4.0
-        with:
-          servers: |
-            [{
-                "id": "nexus-snapshots",
-                "username": "${{ secrets.NEXUS_USERNAME }}",
-                "password": "${{ secrets.NEXUS_PASSWORD }}"
-            }]
-
-      - name: Deploy snapshot
-        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-        run: mvn -B package javadoc:jar source:jar deploy
