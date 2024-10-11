@@ -25,4 +25,4 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Maven build
-        run: mvn -B -U -ff tidy:check com.mycila:license-maven-plugin:check com.github.spotbugs:spotbugs-maven-plugin:check verify
+        run: mvn --batch-mode --update-snapshots --fail-fast tidy:check com.mycila:license-maven-plugin:check com.github.spotbugs:spotbugs-maven-plugin:check verify

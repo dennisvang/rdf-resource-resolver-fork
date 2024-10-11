@@ -26,7 +26,7 @@ jobs:
         distribution: 'temurin'  
     # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#extra-setup-for-pomxml
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn --batch-mode package --file pom.xml
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy
       env:
