@@ -29,7 +29,7 @@
 
     <groupId>com.github.fairdatateam</groupId>
     <artifactId>rdf-resource-resolver</artifactId>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -55,6 +55,10 @@
     </distributionManagement>
 
     <properties>
+        <!-- project version -->
+        <!-- https://maven.apache.org/maven-ci-friendly.html#multi-module-setup -->
+        <revision>0.1.2-SNAPSHOT</revision>
+
         <!-- project settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
