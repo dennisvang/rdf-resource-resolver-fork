@@ -47,9 +47,10 @@
 
     <distributionManagement>
         <repository>
-            <id>nexus-snapshots</id>
-            <name>Nexus Snapshots</name>
-            <url>https://nexus.internal.fairdatapoint.org/repository/maven-snapshots/</url>
+            <!-- https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#publishing-a-package -->
+            <id>github</id>
+            <name>GitHub dennisvang Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/dennisvang/temp-packages-maven</url>
         </repository>
     </distributionManagement>
 
