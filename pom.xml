@@ -70,6 +70,7 @@
         <!-- compile dependency version management -->
         <slf4j.version>1.7.30</slf4j.version>
         <rdf4j.version>3.7.0</rdf4j.version>
+        <flatten.version>1.6.0</flatten.version>
         <!-- provided dependency version management -->
         <spotbugs.version>4.2.3</spotbugs.version>
         <!-- test dependency version management -->
@@ -160,6 +161,7 @@
                 <!-- https://www.mojohaus.org/flatten-maven-plugin/usage.html -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten.version}</version>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
                     <flattenMode>resolveCiFriendliesOnly</flattenMode>
