@@ -49,8 +49,9 @@
         <repository>
             <!-- https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#publishing-a-package -->
             <id>github</id>
-            <name>GitHub dennisvang Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/dennisvang/rdf-resource-resolver-fork</url>
+            <name>GitHub Apache Maven Packages</name>
+            <!-- https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables -->
+            <url>https://maven.pkg.github.com/${env.GITHUB_REPOSITORY}</url>
         </repository>
     </distributionManagement>
 
