@@ -17,12 +17,8 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.version }}
-          distribution: 'temurin'  
-
-      - uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          distribution: 'temurin'
+          cache: maven 
 
       - name: Maven build
         run: mvn --batch-mode --update-snapshots --fail-fast tidy:check com.mycila:license-maven-plugin:check com.github.spotbugs:spotbugs-maven-plugin:check verify
