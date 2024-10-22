@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fairdatateam.rdf.resolver.core;
+package org.fairdatateam.rdf.resolver.core;
 
-import com.github.fairdatateam.rdf.resolver.api.ResolverStrategy;
-import com.github.fairdatateam.rdf.resolver.api.ResourceResolver;
+import org.fairdatateam.rdf.resolver.api.ResolverStrategy;
+import org.fairdatateam.rdf.resolver.api.ResourceResolver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

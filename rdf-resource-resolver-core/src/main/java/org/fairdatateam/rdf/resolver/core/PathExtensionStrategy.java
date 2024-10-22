@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fairdatateam.rdf.resolver.core;
+package org.fairdatateam.rdf.resolver.core;
 
 import java.io.InputStream;
 import java.net.URI;

@@ -21,27 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fairdatateam.rdf.resolver.api;
+package org.fairdatateam.rdf.resolver.core;
 
-import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Optional;
-import java.util.function.BiFunction;
+import org.apache.http.HttpHeaders;
 import org.eclipse.rdf4j.rio.RDFFormat;
 
 /**
- * Strategy interface for custom resource resolving logic. The resolver takes a resource location as input, and resolves
- * it to the corresponding {@link RDFFormat} and {@link InputStream}.
+ * Resolver strategy based on content negotiation. The resource HTTP request is populated with an {@code Accept} header,
+ * containing the acceptable RDF formats (based on the availability on the classpath). The {@code Content-Type} response
+ * header will be checked against the available {@link RDFFormat}s for matching values.
  */
-@FunctionalInterface
-public interface ResolverStrategy {
-    /**
-     * Resolves the resource IRI and, if found, applies the transformation function to the resolved resource.
-     * @param iri resource location
-     * @param func function for transforming the format and stream to the resulting type
-     * @param <R> the resulting type
-     * @return the transformed result instance, or {@link Optional#empty()} if the resource could not be resolved
-     * @throws IOException when the underlying resolver mechanism propagates an I/O exception
-     */
-    <R> Optional<R> resolve(String iri, BiFunction<RDFFormat, InputStream, R> func) throws IOException;
+public class ContentNegotiationStrategy extends AbstractResolverStrategy {
+    @Override
+    protected HttpRequest configureRequest(String iri) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create(iri))
+                .header(HttpHeaders.ACCEPT, ACCEPT_PARAMS)
+                .build();
+    }
+
+    @Override
+    protected Optional<RDFFormat> resolveFormat(HttpResponse<InputStream> response) {
+        return response.headers()
+                .firstValue(HttpHeaders.CONTENT_TYPE)
+                .flatMap(format -> RDFFormat.matchMIMEType(format, FORMATS));
+    }
 }
