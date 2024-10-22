@@ -27,8 +27,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.fairdatateam</groupId>
-    <artifactId>rdf-resource-resolver</artifactId>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
@@ -56,6 +56,9 @@
     </distributionManagement>
 
     <properties>
+        <!-- DRY groupId (can be overridden by command line -DgroupId=... or env variable GROUP_ID) -->
+        <groupId>org.fairdatateam.rdf</groupId>
+        <artifactId>rdf-resource-resolver</artifactId>
         <!-- project version -->
         <!-- https://maven.apache.org/maven-ci-friendly.html#multi-module-setup -->
         <revision>0.1.2-SNAPSHOT</revision>
@@ -187,4 +190,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <!-- override groupId property if GROUP_ID environment variable is found -->
+            <activation>
+                <property>
+                    <name>env.GROUP_ID</name>
+                </property>
+            </activation>
+            <properties>
+                <groupId>${env.GROUP_ID}</groupId>
+            </properties>
+        </profile>
+    </profiles>
 </project>

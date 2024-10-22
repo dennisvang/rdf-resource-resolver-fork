@@ -28,8 +28,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.fairdatateam</groupId>
-        <artifactId>rdf-resource-resolver</artifactId>
+        <groupId>${groupId}</groupId>
+        <artifactId>${artifactId}</artifactId>
         <version>${revision}</version>
     </parent>
 
