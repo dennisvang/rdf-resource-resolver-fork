@@ -47,10 +47,12 @@
 
     <distributionManagement>
         <repository>
-            <!-- https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#publishing-a-package -->
+            <!--
+            https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#publishing-a-package -->
             <id>github</id>
             <name>GitHub Apache Maven Packages</name>
-            <!-- https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables -->
+            <!--
+            https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables -->
             <url>https://maven.pkg.github.com/${env.GITHUB_REPOSITORY}</url>
         </repository>
     </distributionManagement>
@@ -112,6 +114,7 @@
 
     <build>
         <testSourceDirectory>src/test/groovy</testSourceDirectory>
+        <!-- TODO: the repo does not have any tests, so why do we have plugins for surefire, gmavenplus, groovy, spock, ...? -->
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -184,6 +187,72 @@
                         <phase>clean</phase>
                         <goals>
                             <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- the following plugins are required for publishing to maven central -->
+            <!-- https://central.sonatype.org/publish/publish-portal-maven/ -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>false</autoPublish>
+                </configuration>
+            </plugin>
+            <!-- https://central.sonatype.org/publish/publish-maven/#gpg-signed-components -->
+            <!-- https://maven.apache.org/plugins/maven-gpg-plugin/usage.html -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.7</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <keyname>${gpg.keyname}</keyname>
+                            <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- https://central.sonatype.org/publish/publish-maven/#javadoc-and-sources-attachments -->
+            <!-- https://maven.apache.org/plugins/maven-source-plugin/ -->
+            <!-- https://maven.apache.org/plugins/maven-javadoc-plugin/ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.10.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
