@@ -30,6 +30,7 @@ jobs:
     - name: Publish to Maven Central via Portal
       run: mvn --batch-mode deploy
       env:
+        GROUP_ID: ${{ var.GROUP_ID }}
         # https://central.sonatype.org/publish/generate-portal-token/
         MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
