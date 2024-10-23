@@ -19,6 +19,10 @@ jobs:
           java-version: ${{ matrix.version }}
           distribution: 'temurin'
           cache: maven 
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - name: Maven build
         run: mvn --batch-mode --update-snapshots --fail-fast tidy:check com.mycila:license-maven-plugin:check com.github.spotbugs:spotbugs-maven-plugin:check verify
+        env: 
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
