@@ -32,6 +32,9 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
 
+    <name>rdf-resource-resolver</name>
+    <description>Takes a resource identifier and attempts to resolve the resource's content.</description>
+    <url>https://github.com/${env.GITHUB_REPOSITORY}</url>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -40,22 +43,31 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>dennisvang</name>
+            <url>https://github.com/dennisvang</url>
+        </developer>
+        <developer>
+            <name>Kees Burger</name>
+            <url>https://github.com/kburger</url>
+        </developer>
+        <developer>
+            <name>Marek Suchánek</name>
+            <url>https://github.com/MarekSuchanek</url>
+        </developer>        
+    </developers>
+
     <modules>
         <module>rdf-resource-resolver-api</module>
         <module>rdf-resource-resolver-core</module>
     </modules>
 
-    <distributionManagement>
-        <repository>
-            <!--
-            https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#publishing-a-package -->
-            <id>github</id>
-            <name>GitHub Apache Maven Packages</name>
-            <!--
-            https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables -->
-            <url>https://maven.pkg.github.com/${env.GITHUB_REPOSITORY}</url>
-        </repository>
-    </distributionManagement>
+    <scm>
+        <connection>scm:git:https://github.com/${env.GITHUB_REPOSITORY}.git</connection>
+        <developerConnection>scm:git:ssh://github.com/${env.GITHUB_REPOSITORY}.git</developerConnection>
+        <url>https://github.com/${env.GITHUB_REPOSITORY}</url>
+    </scm>
 
     <properties>
         <!-- DRY groupId (can be overridden by command line -DgroupId=... or env variable GROUP_ID) -->
@@ -219,7 +231,7 @@
                         </goals>
                         <configuration>
                             <bestPractices>true</bestPractices>
-                            <!-- set gpg.keyname via command line if necessary (default: first found) -->            
+                            <!-- set gpg.keyname via command line if necessary (default: first found) -->
                         </configuration>
                     </execution>
                 </executions>
