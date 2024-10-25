@@ -38,7 +38,7 @@
     <dependencies>
         <!-- compile -->
         <dependency>
-            <groupId>${groupId}</groupId>
+            <groupId>io.github.dennisvang</groupId>
             <artifactId>rdf-resource-resolver-api</artifactId>
             <version>${project.version}</version>
         </dependency>
