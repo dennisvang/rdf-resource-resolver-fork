@@ -26,8 +26,8 @@ jobs:
         server-password: MAVEN_CENTRAL_TOKEN
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
-    # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#extra-setup-for-pomxml
-    - name: Publish to Maven Central via Portal
+    - name: Publish to Maven Central Portal
+      # visit https://central.sonatype.com/publishing/deployments in case of validation issues
       run: mvn --batch-mode deploy
       env:
         GROUP_ID: ${{ vars.GROUP_ID }}
