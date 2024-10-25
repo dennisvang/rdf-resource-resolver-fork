@@ -27,8 +27,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>${groupId}</groupId>
-    <artifactId>${artifactId}</artifactId>
+    <groupId>io.github.dennisvang</groupId>
+    <artifactId>rdf-resource-resolver</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
@@ -70,9 +70,6 @@
     </scm>
 
     <properties>
-        <!-- DRY groupId (can be overridden by command line -DgroupId=... or env variable GROUP_ID) -->
-        <groupId>io.github.dennisvang</groupId>
-        <artifactId>rdf-resource-resolver</artifactId>
         <!-- project version -->
         <!-- https://maven.apache.org/maven-ci-friendly.html#multi-module-setup -->
         <revision>0.1.3dev0</revision>

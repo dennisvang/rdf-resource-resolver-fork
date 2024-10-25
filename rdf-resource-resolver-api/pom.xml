@@ -28,8 +28,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>${groupId}</groupId>
-        <artifactId>${artifactId}</artifactId>
+        <groupId>io.github.dennisvang</groupId>
+        <artifactId>rdf-resource-resolver</artifactId>
         <version>${revision}</version>
     </parent>
 
