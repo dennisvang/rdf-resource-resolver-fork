@@ -72,7 +72,7 @@
     <properties>
         <!-- project version -->
         <!-- https://maven.apache.org/maven-ci-friendly.html#multi-module-setup -->
-        <revision>0.1.3dev0</revision>
+        <revision>0.2.0dev0</revision>
 
         <!-- project settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
