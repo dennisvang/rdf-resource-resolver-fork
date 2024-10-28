@@ -27,14 +27,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.dennisvang</groupId>
+    <groupId>org.fairdatateam.rdf</groupId>
     <artifactId>rdf-resource-resolver</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>rdf-resource-resolver</name>
     <description>Takes a resource identifier and attempts to resolve the resource's content.</description>
-    <url>https://github.com/${env.GITHUB_REPOSITORY}</url>
+    <url>https://github.com/FAIRDataTeam/rdf-resource-resolver</url>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -64,15 +64,15 @@
     </modules>
 
     <scm>
-        <connection>scm:git:https://github.com/${env.GITHUB_REPOSITORY}.git</connection>
-        <developerConnection>scm:git:ssh://github.com/${env.GITHUB_REPOSITORY}.git</developerConnection>
-        <url>https://github.com/${env.GITHUB_REPOSITORY}</url>
+        <connection>scm:git:https://github.com/FAIRDataTeam/rdf-resource-resolver.git</connection>
+        <developerConnection>scm:git:ssh://github.com/FAIRDataTeam/rdf-resource-resolver.git</developerConnection>
+        <url>https://github.com/FAIRDataTeam/rdf-resource-resolver</url>
     </scm>
 
     <properties>
         <!-- project version -->
         <!-- https://maven.apache.org/maven-ci-friendly.html#multi-module-setup -->
-        <revision>0.2.0dev0</revision>
+        <revision>0.2.0</revision>
 
         <!-- project settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

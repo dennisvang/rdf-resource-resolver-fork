@@ -7,12 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
-## [0.2.0dev0] - 2024 Oct 25
+## [0.2.0] - 2024 Oct 28
 
 ### Changed (backward incompatible)
 
 - changed package namespace from `nl.dtls` to `org.fairdatateam`
-- changed `groupId` to `io.github.dennisvang` (TODO: change to `org.fairdatateam.rdf` before merge with upstream)
+- changed `groupId` to `org.fairdatateam.rdf`
 
 [Unreleased]: https://github.com/fairdatateam/rdf-resource-resolver/compare/master...HEAD
-[0.2.0dev0]: https://github.com/dennisvang/rdf-resource-resolver-fork/releases/tag/0.2.0dev0
+[0.2.0]: https://github.com/fairdatateam/rdf-resource-resolver-fork/releases/tag/0.2.0

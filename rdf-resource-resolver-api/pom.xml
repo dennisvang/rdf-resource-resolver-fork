@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.dennisvang</groupId>
+        <groupId>org.fairdatateam.rdf</groupId>
         <artifactId>rdf-resource-resolver</artifactId>
         <version>${revision}</version>
     </parent>
