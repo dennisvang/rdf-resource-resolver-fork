@@ -21,9 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.fairdatateam.rdf.resolver.core;
+
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Optional;
+import org.apache.http.HttpHeaders;
+import org.eclipse.rdf4j.rio.RDFFormat;
 
 /**
- * API types for the RDF resolver library.
+ * Resolver strategy based on matching the file extension in the URL context path.
  */
-@javax.annotation.ParametersAreNonnullByDefault
-package com.github.fairdevkit.rdf.resolver.api;
+public class PathExtensionStrategy extends AbstractResolverStrategy {
+    @Override
+    protected HttpRequest configureRequest(String iri) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create(iri))
+                .build();
+    }
+
+    @Override
+    protected Optional<RDFFormat> resolveFormat(HttpResponse<InputStream> response) {
+        var path = response.headers()
+                .firstValue(HttpHeaders.LOCATION)
+                .map(URI::create)
+                .orElseGet(response::uri)
+                .getPath();
+
+        return RDFFormat.matchFileName(path, FORMATS);
+    }
+}

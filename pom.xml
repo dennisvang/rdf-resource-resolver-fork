@@ -24,14 +24,17 @@
     SOFTWARE.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.fairdevkit</groupId>
+    <groupId>org.fairdatateam.rdf</groupId>
     <artifactId>rdf-resource-resolver</artifactId>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
+    <name>rdf-resource-resolver</name>
+    <description>Takes a resource identifier and attempts to resolve the resource's content.</description>
+    <url>https://github.com/FAIRDataTeam/rdf-resource-resolver</url>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -40,20 +43,37 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>dennisvang</name>
+            <url>https://github.com/dennisvang</url>
+        </developer>
+        <developer>
+            <name>Kees Burger</name>
+            <url>https://github.com/kburger</url>
+        </developer>
+        <developer>
+            <name>Marek Suchánek</name>
+            <url>https://github.com/MarekSuchanek</url>
+        </developer>        
+    </developers>
+
     <modules>
         <module>rdf-resource-resolver-api</module>
         <module>rdf-resource-resolver-core</module>
     </modules>
 
-    <distributionManagement>
-        <repository>
-            <id>nexus-snapshots</id>
-            <name>Nexus Snapshots</name>
-            <url>https://nexus.internal.fairdatapoint.org/repository/maven-snapshots/</url>
-        </repository>
-    </distributionManagement>
+    <scm>
+        <connection>scm:git:https://github.com/FAIRDataTeam/rdf-resource-resolver.git</connection>
+        <developerConnection>scm:git:ssh://github.com/FAIRDataTeam/rdf-resource-resolver.git</developerConnection>
+        <url>https://github.com/FAIRDataTeam/rdf-resource-resolver</url>
+    </scm>
 
     <properties>
+        <!-- project version -->
+        <!-- https://maven.apache.org/maven-ci-friendly.html#multi-module-setup -->
+        <revision>0.2.0</revision>
+
         <!-- project settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -64,6 +84,7 @@
         <!-- compile dependency version management -->
         <slf4j.version>1.7.30</slf4j.version>
         <rdf4j.version>3.7.0</rdf4j.version>
+        <flatten.version>1.6.0</flatten.version>
         <!-- provided dependency version management -->
         <spotbugs.version>4.2.3</spotbugs.version>
         <!-- test dependency version management -->
@@ -102,6 +123,7 @@
 
     <build>
         <testSourceDirectory>src/test/groovy</testSourceDirectory>
+        <!-- TODO: the repo does not have any tests, so why do we have plugins for surefire, gmavenplus, groovy, spock, ...? -->
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -149,6 +171,111 @@
                     </licenseSets>
                 </configuration>
             </plugin>
+            <plugin><!-- required for deploying projects with ${revision} -->
+                <!-- https://maven.apache.org/maven-ci-friendly.html#install-deploy -->
+                <!-- https://www.mojohaus.org/flatten-maven-plugin/usage.html -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <!-- enable flattening -->
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <!-- ensure proper cleanup -->
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- the following plugins are required for publishing to maven central -->
+            <!-- https://central.sonatype.org/publish/publish-portal-maven/ -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>false</autoPublish>
+                </configuration>
+            </plugin>
+            <!-- https://central.sonatype.org/publish/publish-maven/#gpg-signed-components -->
+            <!-- https://maven.apache.org/plugins/maven-gpg-plugin/usage.html -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.7</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <bestPractices>true</bestPractices>
+                            <!-- set gpg.keyname via command line if necessary (default: first found) -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- https://central.sonatype.org/publish/publish-maven/#javadoc-and-sources-attachments -->
+            <!-- https://maven.apache.org/plugins/maven-source-plugin/ -->
+            <!-- https://maven.apache.org/plugins/maven-javadoc-plugin/ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.10.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <!-- override groupId property if GROUP_ID environment variable is found -->
+            <activation>
+                <property>
+                    <name>env.GROUP_ID</name>
+                </property>
+            </activation>
+            <properties>
+                <groupId>${env.GROUP_ID}</groupId>
+            </properties>
+        </profile>
+    </profiles>
 </project>

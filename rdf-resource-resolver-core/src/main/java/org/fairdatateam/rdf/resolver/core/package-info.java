@@ -26,4 +26,4 @@
  * Core implementations of the RDF Resolver APIs.
  */
 @javax.annotation.ParametersAreNonnullByDefault
-package com.github.fairdevkit.rdf.resolver.core;
+package org.fairdatateam.rdf.resolver.core;
